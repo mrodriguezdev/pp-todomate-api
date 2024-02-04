@@ -5,23 +5,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
-    private String creationDate;
-    private String dueDate;
+    private LocalDate creationDate;
+    private LocalDate dueDate;
     private Boolean completed;
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, String creationDate, String dueDate, Boolean completed) {
+    public Task(Long id, String title, String description, LocalDate creationDate, LocalDate dueDate, Boolean completed) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -54,19 +55,19 @@ public class Task {
         this.description = description;
     }
 
-    public String getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -97,8 +98,8 @@ public class Task {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", dueDate='" + dueDate + '\'' +
+                ", creationDate=" + creationDate +
+                ", dueDate=" + dueDate +
                 ", completed=" + completed +
                 '}';
     }
