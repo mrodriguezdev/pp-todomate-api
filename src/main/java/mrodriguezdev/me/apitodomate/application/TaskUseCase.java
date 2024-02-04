@@ -39,7 +39,9 @@ public class TaskUseCase implements TaskInputPort {
     @Override
     public Paginator<TaskDTO> getTasks(Integer page, Integer size) {
         try {
-            return this.taskOutputPort.getTasks(page, size);
+            Paginator<TaskDTO> taskPaginator = this.taskOutputPort.getTasks(page, size);
+            if(taskPaginator.items.isEmpty()) throw new NotFoundException("No tasks found");
+            return taskPaginator;
         } catch (NotFoundException nfe) {
             throw new NotFoundException(nfe.getMessage());
         } catch (Exception e) {

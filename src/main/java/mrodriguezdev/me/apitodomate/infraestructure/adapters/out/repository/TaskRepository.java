@@ -4,27 +4,36 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import mrodriguezdev.me.apitodomate.domain.mapper.TaskMapper;
 import mrodriguezdev.me.apitodomate.domain.model.orm.Task;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
-import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
+import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
+
+import java.time.LocalDate;
 
 @ApplicationScoped
 public class TaskRepository implements PanacheRepositoryBase<Task, Long> {
 
-    @Inject
-    TaskMapper taskMapper;
+    public Task save(TaskRequestDTO taskRequestDTO) {
+        LocalDate date = LocalDate.now();
+        Task newTask = new Task();
+        newTask.setTitle(taskRequestDTO.title);
+        newTask.setDescription(taskRequestDTO.description);
+        newTask.setCreationDate(date);
+        newTask.setDueDate(taskRequestDTO.dueDate);
+        newTask.setCompleted(false);
+        persist(newTask);
+        return newTask;
+    }
 
-    public Paginator<TaskDTO> getTasks(Integer page, Integer size) {
+    public Paginator<Task> getTasks(Integer page, Integer size) {
         page = (page != null) ? page : 0;
         size = (size != null) ? size : 10;
 
         PanacheQuery<Task> pqTask = find("ORDER BY id ASC")
                 .page(Page.of(page, size));
 
-        Paginator<TaskDTO> taskPaginator = new Paginator<>();
-        taskPaginator.items = this.taskMapper.toLstDTO(pqTask.list());
+        Paginator<Task> taskPaginator = new Paginator<>();
+        taskPaginator.items = pqTask.list();
         taskPaginator.currentPage = page;
         taskPaginator.pageSize = pqTask.pageCount();
         return taskPaginator;
