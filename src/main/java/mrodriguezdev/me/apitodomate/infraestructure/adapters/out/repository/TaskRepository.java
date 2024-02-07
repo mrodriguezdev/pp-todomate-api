@@ -8,18 +8,16 @@ import mrodriguezdev.me.apitodomate.domain.model.orm.Task;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
 
-import java.time.LocalDate;
-
 @ApplicationScoped
 public class TaskRepository implements PanacheRepositoryBase<Task, Long> {
 
     public Task save(TaskRequestDTO taskRequestDTO) {
-        LocalDate date = LocalDate.now();
         Task newTask = new Task();
         newTask.setTitle(taskRequestDTO.title);
         newTask.setDescription(taskRequestDTO.description);
-        newTask.setCreationDate(date);
+        newTask.setCreationDate(taskRequestDTO.creationDate);
         newTask.setDueDate(taskRequestDTO.dueDate);
+        newTask.setPriority(taskRequestDTO.priority);
         newTask.setCompleted(false);
         persist(newTask);
         return newTask;

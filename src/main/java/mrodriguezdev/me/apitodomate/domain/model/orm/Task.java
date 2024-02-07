@@ -15,18 +15,14 @@ public class Task {
     private String description;
     private LocalDate creationDate;
     private LocalDate dueDate;
+    private String priority;
     private Boolean completed;
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, LocalDate creationDate, LocalDate dueDate, Boolean completed) {
+    public Task(Long id) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.dueDate = dueDate;
-        this.completed = completed;
     }
 
     public Long getId() {
@@ -69,6 +65,14 @@ public class Task {
         this.dueDate = dueDate;
     }
 
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public Boolean getCompleted() {
         return completed;
     }
@@ -82,12 +86,12 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creationDate, task.creationDate) && Objects.equals(dueDate, task.dueDate) && Objects.equals(completed, task.completed);
+        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creationDate, task.creationDate) && Objects.equals(dueDate, task.dueDate) && Objects.equals(priority, task.priority) && Objects.equals(completed, task.completed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, creationDate, dueDate, completed);
+        return Objects.hash(id, title, description, creationDate, dueDate, priority, completed);
     }
 
     @Override
@@ -98,6 +102,7 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
                 ", dueDate=" + dueDate +
+                ", priority='" + priority + '\'' +
                 ", completed=" + completed +
                 '}';
     }

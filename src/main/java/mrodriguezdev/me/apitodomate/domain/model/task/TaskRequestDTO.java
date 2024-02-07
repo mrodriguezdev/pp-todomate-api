@@ -10,7 +10,12 @@ public class TaskRequestDTO {
     public String title;
     @NotNull(message = "Description cannot be null")
     public String description;
+    @NotNull(message = "CreationDate cannot be null")
+    @JsonbDateFormat
+    public LocalDate creationDate;
     @NotNull(message = "DueDate cannot be null")
     @JsonbDateFormat
     public LocalDate dueDate;
+    @NotNull(message = "Priority cannot be null")
+    public String priority;
 }
