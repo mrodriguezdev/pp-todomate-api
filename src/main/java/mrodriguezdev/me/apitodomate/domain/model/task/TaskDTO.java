@@ -11,5 +11,7 @@ public class TaskDTO {
     public Date creationDate;
     @JsonbDateFormat(value = "yyyy-MM-dd")
     public Date dueDate;
+    public String priority;
     public Boolean completed;
+    public Long usuario;
 }
