@@ -25,5 +25,6 @@ DB_TYPE=< Tipo de base de datos (ejemplo: mysql, postgresql, h2, mongodb) >
 DB_USER=< Nombre de usuario para acceder a la base de datos >
 DB_PASSWORD=< Contraseña asociada al usuario de la base de datos >
 DB_HOST=< Dirección del servidor de la base de datos >
+DB_PORT=< Número de puerto en el que el servidor de la base de datos está escuchando >
 DB_NAME=< Nombre de la base de datos que la aplicación utilizará >
 ```

@@ -8,8 +8,7 @@ import java.util.Objects;
 @Entity
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_SEQ")
-    @SequenceGenerator(name = "TASK_SEQ", sequenceName = "TASK_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String description;
@@ -17,6 +16,9 @@ public class Task {
     private LocalDate dueDate;
     private String priority;
     private Boolean completed;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Task() {
     }
@@ -81,17 +83,25 @@ public class Task {
         this.completed = completed;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creationDate, task.creationDate) && Objects.equals(dueDate, task.dueDate) && Objects.equals(priority, task.priority) && Objects.equals(completed, task.completed);
+        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(creationDate, task.creationDate) && Objects.equals(dueDate, task.dueDate) && Objects.equals(priority, task.priority) && Objects.equals(completed, task.completed) && Objects.equals(user, task.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, creationDate, dueDate, priority, completed);
+        return Objects.hash(id, title, description, creationDate, dueDate, priority, completed, user);
     }
 
     @Override
@@ -104,6 +114,7 @@ public class Task {
                 ", dueDate=" + dueDate +
                 ", priority='" + priority + '\'' +
                 ", completed=" + completed +
+                ", user=" + user +
                 '}';
     }
 }
