@@ -18,4 +18,6 @@ public class TaskRequestDTO {
     public LocalDate dueDate;
     @NotNull(message = "Priority cannot be null")
     public String priority;
+    @NotNull(message = "User_id cannot be null")
+    public Long user_id;
 }

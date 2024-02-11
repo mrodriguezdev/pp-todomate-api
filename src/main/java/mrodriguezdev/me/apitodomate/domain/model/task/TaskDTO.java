@@ -13,5 +13,5 @@ public class TaskDTO {
     public Date dueDate;
     public String priority;
     public Boolean completed;
-    public Long usuario;
+    public Long user_id;
 }
