@@ -47,6 +47,10 @@ public class UserUseCase implements UserInputPort {
         }
     }
 
+    public Optional<User> findById(Long id) {
+        return this.userOutputPort.findById(id);
+    }
+
     private Optional<User> findByUsername(String username) {
         return this.userOutputPort.findByUsername(username);
     }

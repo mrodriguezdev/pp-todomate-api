@@ -10,7 +10,6 @@ import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
 import mrodriguezdev.me.apitodomate.infraestructure.ports.in.TaskInputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.ports.out.TaskOutputPort;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.out.UserOutputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.utils.ValidationUtil;
 
 import java.util.logging.Level;
@@ -25,7 +24,7 @@ public class TaskUseCase implements TaskInputPort {
     TaskOutputPort taskOutputPort;
 
     @Inject
-    UserOutputPort userOutputPort;
+    UserUseCase userUseCase;
 
     @Override
     public TaskDTO create(TaskRequestDTO taskRequestDTO) {
@@ -44,8 +43,10 @@ public class TaskUseCase implements TaskInputPort {
     }
 
     private void validateUser(Long id) {
-        this.userOutputPort.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("User with ID %s not found", id)));
+        boolean isUserAlreadyExists = this.userUseCase.findById(id)
+                .isPresent();
+
+        if(!isUserAlreadyExists) throw new NotFoundException(String.format("User with ID %s not found", id));
     }
 
     @Override
