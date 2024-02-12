@@ -2,6 +2,7 @@ package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import mrodriguezdev.me.apitodomate.domain.model.orm.User;
 import mrodriguezdev.me.apitodomate.infraestructure.adapters.out.repository.UserRepository;
 import mrodriguezdev.me.apitodomate.infraestructure.ports.out.UserOutputPort;
@@ -13,6 +14,12 @@ public class UserOutputAdapter implements UserOutputPort {
 
     @Inject
     UserRepository userRepository;
+
+    @Override
+    @Transactional
+    public void create(User newUser) {
+        this.userRepository.persist(newUser);
+    }
 
     @Override
     public Optional<User> findById(Long id) {
