@@ -1,0 +1,23 @@
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.in.rest;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import mrodriguezdev.me.apitodomate.domain.model.auth.AuthRequestDTO;
+import mrodriguezdev.me.apitodomate.domain.model.auth.AuthResponseDTO;
+import mrodriguezdev.me.apitodomate.infraestructure.ports.in.AuthInputPort;
+
+@Path("auth")
+public class AuthController {
+
+    @Inject
+    AuthInputPort authInputPort;
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public AuthResponseDTO login(AuthRequestDTO authRequestDTO) {
+        return this.authInputPort.login(authRequestDTO);
+    }
+}
