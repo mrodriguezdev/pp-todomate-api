@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import mrodriguezdev.me.apitodomate.domain.exceptions.BadRequestException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.InternalServerErrorException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.NotFoundException;
+import mrodriguezdev.me.apitodomate.domain.model.orm.User;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
@@ -30,8 +31,8 @@ public class TaskUseCase implements TaskInputPort {
     public TaskDTO create(TaskRequestDTO taskRequestDTO) {
         try {
             ValidationUtil.validar(taskRequestDTO);
-            this.validateUser(taskRequestDTO.user_id);
-            return this.taskOutputPort.persist(taskRequestDTO);
+            User user = this.validateUser(taskRequestDTO.user_id);
+            return this.taskOutputPort.persist(user, taskRequestDTO);
         } catch (NotFoundException nfe) {
           throw new NotFoundException(nfe.getMessage());
         } catch (BadRequestException bre) {
@@ -42,17 +43,16 @@ public class TaskUseCase implements TaskInputPort {
         }
     }
 
-    private void validateUser(Long id) {
-        boolean isUserAlreadyExists = this.userUseCase.findById(id)
-                .isPresent();
-
-        if(!isUserAlreadyExists) throw new NotFoundException(String.format("User with ID %s not found", id));
+    private User validateUser(Long id) {
+        return this.userUseCase.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("User with ID %s not found", id)));
     }
 
     @Override
-    public Paginator<TaskDTO> getTasks(Integer page, Integer size) {
+    public Paginator<TaskDTO> getTasks(Long user_id, Integer page, Integer size) {
         try {
-            Paginator<TaskDTO> taskPaginator = this.taskOutputPort.getTasks(page, size);
+            this.validateUser(user_id);
+            Paginator<TaskDTO> taskPaginator = this.taskOutputPort.getTasks(user_id, page, size);
             if(taskPaginator.items.isEmpty()) throw new NotFoundException("No tasks found");
             return taskPaginator;
         } catch (NotFoundException nfe) {

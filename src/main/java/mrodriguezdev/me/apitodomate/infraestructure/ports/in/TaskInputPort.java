@@ -6,5 +6,5 @@ import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
 
 public interface TaskInputPort {
     TaskDTO create(TaskRequestDTO taskRequestDTO);
-    Paginator<TaskDTO> getTasks(Integer page, Integer size);
+    Paginator<TaskDTO> getTasks(Long user_id, Integer page, Integer size);
 }
