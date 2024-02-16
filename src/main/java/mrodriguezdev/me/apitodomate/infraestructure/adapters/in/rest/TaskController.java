@@ -22,10 +22,11 @@ public class TaskController {
     }
 
     @GET
-    @Path("paginate")
+    @Path("user/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Paginator<TaskDTO> getTasks(@QueryParam("page") Integer page,
-                                        @QueryParam("size") Integer size) {
-        return this.taskInputPort.getTasks(page, size);
+    public Paginator<TaskDTO> getTasks(@PathParam("id") Long user_id,
+                                       @QueryParam("page") Integer page,
+                                       @QueryParam("size") Integer size) {
+        return this.taskInputPort.getTasks(user_id, page, size);
     }
 }
