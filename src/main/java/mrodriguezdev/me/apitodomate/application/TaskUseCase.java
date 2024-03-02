@@ -1,10 +1,10 @@
 package mrodriguezdev.me.apitodomate.application;
 
+import mrodriguezdev.me.apitodomate.domain.model.user.UserDTO;
 import mrodriguezdev.me.apitodomate.infraestructure.common.UseCase;
 import mrodriguezdev.me.apitodomate.domain.exceptions.BadRequestException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.InternalServerErrorException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.NotFoundException;
-import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
@@ -30,7 +30,7 @@ public class TaskUseCase implements TaskInputPort {
     public TaskDTO create(TaskRequestDTO taskRequestDTO) {
         try {
             ValidationUtil.validar(taskRequestDTO);
-            User user = this.validateUser(taskRequestDTO.user_id);
+            UserDTO user = this.userUseCase.findById(taskRequestDTO.user_id);
             return this.taskOutputPort.persist(user, taskRequestDTO);
         } catch (NotFoundException nfe) {
           throw new NotFoundException(nfe.getMessage());
@@ -42,15 +42,10 @@ public class TaskUseCase implements TaskInputPort {
         }
     }
 
-    private User validateUser(Long id) {
-        return this.userUseCase.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("User with ID %s not found", id)));
-    }
-
     @Override
     public Paginator<TaskDTO> getTasks(Long user_id, Integer page, Integer size) {
         try {
-            this.validateUser(user_id);
+            this.userUseCase.findById(user_id);
             Paginator<TaskDTO> taskPaginator = this.taskOutputPort.getTasks(user_id, page, size);
             if(taskPaginator.items.isEmpty()) throw new NotFoundException("No tasks found");
             return taskPaginator;

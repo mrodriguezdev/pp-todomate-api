@@ -1,5 +1,6 @@
 package mrodriguezdev.me.apitodomate.infraestructure.adapters.in.http;
 
+import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -8,6 +9,7 @@ import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
 import mrodriguezdev.me.apitodomate.domain.ports.in.TaskInputPort;
 
+@Authenticated
 @Path("task")
 public class TaskController {
 

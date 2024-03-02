@@ -1,4 +1,4 @@
-package mrodriguezdev.me.apitodomate.infraestructure.entities;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user;
 
 import jakarta.persistence.*;
 

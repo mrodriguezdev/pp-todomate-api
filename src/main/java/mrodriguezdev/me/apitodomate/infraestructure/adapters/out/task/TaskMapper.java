@@ -1,6 +1,5 @@
-package mrodriguezdev.me.apitodomate.infraestructure.mapper;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.task;
 
-import mrodriguezdev.me.apitodomate.infraestructure.entities.Task;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

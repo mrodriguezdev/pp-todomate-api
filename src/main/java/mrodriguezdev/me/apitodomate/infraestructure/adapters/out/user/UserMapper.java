@@ -1,6 +1,5 @@
-package mrodriguezdev.me.apitodomate.infraestructure.mapper;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user;
 
-import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 import mrodriguezdev.me.apitodomate.domain.model.user.UserDTO;
 import org.mapstruct.Mapper;
 
