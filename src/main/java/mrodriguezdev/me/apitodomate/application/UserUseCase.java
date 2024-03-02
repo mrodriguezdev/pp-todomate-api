@@ -10,6 +10,7 @@ import mrodriguezdev.me.apitodomate.domain.ports.in.UserInputPort;
 import mrodriguezdev.me.apitodomate.domain.ports.out.UserOutputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.utils.ValidationUtil;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,10 +31,9 @@ public class UserUseCase implements UserInputPort {
     public UserDTO create(UserDTO userDTO) {
         try {
             ValidationUtil.validar(userDTO);
-            boolean isUserAlreadyExists = this.findByUsername(userDTO.username)
-                    .isPresent();
+            UserDTO user = this.findByUsername(userDTO.username);
 
-            if(isUserAlreadyExists)
+            if(Objects.nonNull(user))
                 throw new BadRequestException(String.format("The username '%s' is already taken. Please choose a different username.", userDTO.username));
 
             User newUser = this.userMapper.toEntity(userDTO);
@@ -51,7 +51,7 @@ public class UserUseCase implements UserInputPort {
         return this.userOutputPort.findById(id);
     }
 
-    public Optional<User> findByUsername(String username) {
+    public UserDTO findByUsername(String username) {
         return this.userOutputPort.findByUsername(username);
     }
 }

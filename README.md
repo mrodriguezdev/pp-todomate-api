@@ -27,4 +27,7 @@ DB_PASSWORD=< Contraseña asociada al usuario de la base de datos >
 DB_HOST=< Dirección del servidor de la base de datos >
 DB_PORT=< Número de puerto en el que el servidor de la base de datos está escuchando >
 DB_NAME=< Nombre de la base de datos que la aplicación utilizará >
+ISSUER=<  >
+PUBLIC_KEY_LOCATION=<  >
+PRIVATE_KEY_LOCATION=<  >
 ```
