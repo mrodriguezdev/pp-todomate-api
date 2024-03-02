@@ -1,4 +1,4 @@
-package mrodriguezdev.me.apitodomate.infraestructure.adapters.in.rest;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.in.http;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -8,7 +8,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import mrodriguezdev.me.apitodomate.domain.model.auth.AuthRequestDTO;
 import mrodriguezdev.me.apitodomate.domain.model.auth.AuthResponseDTO;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.in.AuthInputPort;
+import mrodriguezdev.me.apitodomate.domain.ports.in.AuthInputPort;
 
 @Path("auth")
 public class AuthController {

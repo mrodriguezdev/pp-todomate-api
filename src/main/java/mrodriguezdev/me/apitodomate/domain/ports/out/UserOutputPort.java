@@ -1,6 +1,6 @@
-package mrodriguezdev.me.apitodomate.infraestructure.ports.out;
+package mrodriguezdev.me.apitodomate.domain.ports.out;
 
-import mrodriguezdev.me.apitodomate.domain.model.orm.User;
+import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 
 import java.util.Optional;
 

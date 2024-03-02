@@ -1,4 +1,4 @@
-package mrodriguezdev.me.apitodomate.infraestructure.ports.in;
+package mrodriguezdev.me.apitodomate.domain.ports.in;
 
 import mrodriguezdev.me.apitodomate.domain.model.user.UserDTO;
 

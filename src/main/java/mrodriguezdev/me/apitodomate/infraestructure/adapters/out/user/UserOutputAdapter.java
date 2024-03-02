@@ -3,9 +3,9 @@ package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import mrodriguezdev.me.apitodomate.domain.model.orm.User;
-import mrodriguezdev.me.apitodomate.infraestructure.adapters.out.repository.UserRepository;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.out.UserOutputPort;
+import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
+import mrodriguezdev.me.apitodomate.infraestructure.repositories.UserRepository;
+import mrodriguezdev.me.apitodomate.domain.ports.out.UserOutputPort;
 
 import java.util.Optional;
 

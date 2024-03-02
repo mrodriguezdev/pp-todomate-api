@@ -1,26 +1,27 @@
 package mrodriguezdev.me.apitodomate.application;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import mrodriguezdev.me.apitodomate.infraestructure.common.UseCase;
 import mrodriguezdev.me.apitodomate.domain.exceptions.BadRequestException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.InternalServerErrorException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.NotFoundException;
 import mrodriguezdev.me.apitodomate.domain.model.auth.AuthRequestDTO;
 import mrodriguezdev.me.apitodomate.domain.model.auth.AuthResponseDTO;
-import mrodriguezdev.me.apitodomate.domain.model.orm.User;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.in.AuthInputPort;
+import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
+import mrodriguezdev.me.apitodomate.domain.ports.in.AuthInputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.utils.ValidationUtil;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@UseCase
 public class AuthUseCase implements AuthInputPort {
 
     private final Logger logger = Logger.getLogger(AuthUseCase.class.getName());
+    private final UserUseCase userUseCase;
 
-    @Inject
-    UserUseCase userUseCase;
+    public AuthUseCase(UserUseCase userUseCase) {
+        this.userUseCase = userUseCase;
+    }
 
     @Override
     public AuthResponseDTO login(AuthRequestDTO authRequestDTO) {

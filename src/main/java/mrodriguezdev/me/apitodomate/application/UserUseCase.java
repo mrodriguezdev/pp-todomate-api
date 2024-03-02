@@ -1,30 +1,30 @@
 package mrodriguezdev.me.apitodomate.application;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import mrodriguezdev.me.apitodomate.infraestructure.common.UseCase;
 import mrodriguezdev.me.apitodomate.domain.exceptions.BadRequestException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.InternalServerErrorException;
-import mrodriguezdev.me.apitodomate.domain.mapper.UserMapper;
-import mrodriguezdev.me.apitodomate.domain.model.orm.User;
+import mrodriguezdev.me.apitodomate.infraestructure.mapper.UserMapper;
+import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 import mrodriguezdev.me.apitodomate.domain.model.user.UserDTO;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.in.UserInputPort;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.out.UserOutputPort;
+import mrodriguezdev.me.apitodomate.domain.ports.in.UserInputPort;
+import mrodriguezdev.me.apitodomate.domain.ports.out.UserOutputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.utils.ValidationUtil;
 
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@UseCase
 public class UserUseCase implements UserInputPort {
 
     private final Logger logger = Logger.getLogger(UserUseCase.class.getName());
+    private final UserOutputPort userOutputPort;
+    private final UserMapper userMapper;
 
-    @Inject
-    UserOutputPort userOutputPort;
-
-    @Inject
-    UserMapper userMapper;
+    public UserUseCase(UserOutputPort userOutputPort, UserMapper userMapper) {
+        this.userOutputPort = userOutputPort;
+        this.userMapper = userMapper;
+    }
 
     @Override
     public UserDTO create(UserDTO userDTO) {

@@ -1,4 +1,4 @@
-package mrodriguezdev.me.apitodomate.domain.model.orm;
+package mrodriguezdev.me.apitodomate.infraestructure.entities;
 
 import jakarta.persistence.*;
 
