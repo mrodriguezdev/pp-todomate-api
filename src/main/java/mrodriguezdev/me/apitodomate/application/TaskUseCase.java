@@ -1,31 +1,30 @@
 package mrodriguezdev.me.apitodomate.application;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import mrodriguezdev.me.apitodomate.infraestructure.common.UseCase;
 import mrodriguezdev.me.apitodomate.domain.exceptions.BadRequestException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.InternalServerErrorException;
 import mrodriguezdev.me.apitodomate.domain.exceptions.NotFoundException;
-import mrodriguezdev.me.apitodomate.domain.model.orm.User;
+import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskDTO;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.in.TaskInputPort;
-import mrodriguezdev.me.apitodomate.infraestructure.ports.out.TaskOutputPort;
+import mrodriguezdev.me.apitodomate.domain.ports.in.TaskInputPort;
+import mrodriguezdev.me.apitodomate.domain.ports.out.TaskOutputPort;
 import mrodriguezdev.me.apitodomate.infraestructure.utils.ValidationUtil;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@UseCase
 public class TaskUseCase implements TaskInputPort {
-
     private final Logger logger = Logger.getLogger(TaskUseCase.class.getName());
+    private final TaskOutputPort taskOutputPort;
+    private final UserUseCase userUseCase;
 
-    @Inject
-    TaskOutputPort taskOutputPort;
-
-    @Inject
-    UserUseCase userUseCase;
+    public TaskUseCase(TaskOutputPort taskOutputPort, UserUseCase userUseCase) {
+        this.taskOutputPort = taskOutputPort;
+        this.userUseCase = userUseCase;
+    }
 
     @Override
     public TaskDTO create(TaskRequestDTO taskRequestDTO) {
