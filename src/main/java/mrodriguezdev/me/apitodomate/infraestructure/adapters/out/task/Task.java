@@ -1,6 +1,7 @@
-package mrodriguezdev.me.apitodomate.infraestructure.entities;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.task;
 
 import jakarta.persistence.*;
+import mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user.User;
 
 import java.time.LocalDate;
 import java.util.Objects;

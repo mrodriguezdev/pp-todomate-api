@@ -1,8 +1,7 @@
-package mrodriguezdev.me.apitodomate.infraestructure.repositories;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
-import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
 
 import java.util.Optional;
 

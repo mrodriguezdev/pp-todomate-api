@@ -1,11 +1,10 @@
-package mrodriguezdev.me.apitodomate.infraestructure.repositories;
+package mrodriguezdev.me.apitodomate.infraestructure.adapters.out.task;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
-import mrodriguezdev.me.apitodomate.infraestructure.entities.Task;
-import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
+import mrodriguezdev.me.apitodomate.infraestructure.adapters.out.user.User;
 import mrodriguezdev.me.apitodomate.domain.model.paginator.Paginator;
 import mrodriguezdev.me.apitodomate.domain.model.task.TaskRequestDTO;
 

@@ -5,12 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import mrodriguezdev.me.apitodomate.domain.exceptions.NotFoundException;
 import mrodriguezdev.me.apitodomate.domain.model.user.UserDTO;
-import mrodriguezdev.me.apitodomate.infraestructure.entities.User;
-import mrodriguezdev.me.apitodomate.infraestructure.mapper.UserMapper;
-import mrodriguezdev.me.apitodomate.infraestructure.repositories.UserRepository;
 import mrodriguezdev.me.apitodomate.domain.ports.out.UserOutputPort;
-
-import java.util.Optional;
 
 @ApplicationScoped
 public class UserOutputAdapter implements UserOutputPort {
@@ -23,19 +18,23 @@ public class UserOutputAdapter implements UserOutputPort {
 
     @Override
     @Transactional
-    public void create(User newUser) {
-        this.userRepository.persist(newUser);
+    public void create(UserDTO newUser) {
+        this.userRepository.persist(this.userMapper.toEntity(newUser));
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return this.userRepository.findByIdOptional(id);
+    public UserDTO findById(Long id) {
+        return this.userRepository
+                .findByIdOptional(id)
+                .map(user -> this.userMapper.toDTO(user))
+                .orElseThrow(() -> new NotFoundException(String.format("User with ID %s not found", id)));
     }
 
     @Override
     public UserDTO findByUsername(String username) {
-        User user = this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("User not found"));
-        return this.userMapper.toDTO(user);
+        return this.userRepository
+                .findByUsername(username)
+                .map(user -> this.userMapper.toDTO(user))
+                .orElse(null);
     }
 }
